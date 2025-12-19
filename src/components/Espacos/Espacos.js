@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 import {
   listarEspacos,
   criarEspaco,
@@ -69,11 +70,12 @@ const Espacos = () => {
           localizacao: "",
         });
         carregarEspacos();
+        toast.success(editingEspaco ? "Espaço atualizado com sucesso!" : "Espaço criado com sucesso!");
       } else {
-        alert("Erro: " + result.error);
+        toast.error("Erro: " + result.error);
       }
     } catch (error) {
-      alert("Erro ao salvar espaço: " + error.message);
+      toast.error("Erro ao salvar espaço: " + error.message);
     }
   };
 
@@ -95,8 +97,9 @@ const Espacos = () => {
       const result = await deletarEspaco(id);
       if (result.success) {
         carregarEspacos();
+        toast.success("Espaço deletado com sucesso!");
       } else {
-        alert("Erro ao deletar: " + result.error);
+        toast.error("Erro ao deletar: " + result.error);
       }
     }
   };

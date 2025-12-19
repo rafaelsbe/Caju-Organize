@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 import {
   listarReservas,
   criarReserva,
@@ -99,16 +100,16 @@ const Reservas = () => {
           observacoes: "",
         });
         carregarDados();
-        alert(
+        toast.success(
           isAdmin()
             ? "Reserva criada com sucesso!"
             : "Solicitação de reserva enviada! Aguarde a confirmação do administrador.",
         );
       } else {
-        alert("Erro: " + result.error);
+        toast.error("Erro: " + result.error);
       }
     } catch (error) {
-      alert("Erro ao salvar reserva: " + error.message);
+      toast.error("Erro ao salvar reserva: " + error.message);
     }
   };
 
@@ -133,8 +134,9 @@ const Reservas = () => {
       const result = await cancelarReserva(id);
       if (result.success) {
         carregarDados();
+        toast.success("Reserva cancelada com sucesso!");
       } else {
-        alert("Erro ao cancelar: " + result.error);
+        toast.error("Erro ao cancelar: " + result.error);
       }
     }
   };
@@ -144,8 +146,9 @@ const Reservas = () => {
       const result = await deletarReserva(id);
       if (result.success) {
         carregarDados();
+        toast.success("Reserva deletada com sucesso!");
       } else {
-        alert("Erro ao deletar: " + result.error);
+        toast.error("Erro ao deletar: " + result.error);
       }
     }
   };
@@ -167,9 +170,9 @@ const Reservas = () => {
       const result = await aceitarReserva(id);
       if (result.success) {
         carregarDados();
-        alert("Reserva aceita com sucesso!");
+        toast.success("Reserva aceita com sucesso!");
       } else {
-        alert("Erro ao aceitar: " + result.error);
+        toast.error("Erro ao aceitar: " + result.error);
       }
     }
   };
@@ -179,9 +182,9 @@ const Reservas = () => {
       const result = await rejeitarReserva(id);
       if (result.success) {
         carregarDados();
-        alert("Reserva rejeitada.");
+        toast.success("Reserva rejeitada.");
       } else {
-        alert("Erro ao rejeitar: " + result.error);
+        toast.error("Erro ao rejeitar: " + result.error);
       }
     }
   };

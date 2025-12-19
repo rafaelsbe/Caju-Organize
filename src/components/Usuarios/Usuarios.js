@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 import {
   listarUsuarios,
   criarUsuario,
@@ -60,11 +61,12 @@ const Usuarios = () => {
           empresa: "",
         });
         carregarUsuarios();
+        toast.success(editingUsuario ? "Usuário atualizado com sucesso!" : "Usuário criado com sucesso!");
       } else {
-        alert("Erro: " + result.error);
+        toast.error("Erro: " + result.error);
       }
     } catch (error) {
-      alert("Erro ao salvar usuário: " + error.message);
+      toast.error("Erro ao salvar usuário: " + error.message);
     }
   };
 
@@ -85,8 +87,9 @@ const Usuarios = () => {
       const result = await deletarUsuario(id);
       if (result.success) {
         carregarUsuarios();
+        toast.success("Usuário deletado com sucesso!");
       } else {
-        alert("Erro ao deletar: " + result.error);
+        toast.error("Erro ao deletar: " + result.error);
       }
     }
   };

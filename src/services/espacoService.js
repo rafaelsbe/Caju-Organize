@@ -26,7 +26,7 @@ export const criarEspaco = async (espacoData) => {
       disponivel:
         espacoData.disponivel !== undefined ? espacoData.disponivel : true,
     };
-    // Remover localização com ç se existir
+
     if (dadosNormalizados.localização) {
       delete dadosNormalizados.localização;
     }
@@ -42,7 +42,6 @@ export const criarEspaco = async (espacoData) => {
   }
 };
 
-// Listar todos os espaços
 export const listarEspacos = async () => {
   try {
     const q = query(collection(db, ESPACOS_COLLECTION), orderBy("nome"));
@@ -56,7 +55,7 @@ export const listarEspacos = async () => {
         ...data,
 
         localizacao: data.localizacao || data.localização || "",
-        // Normalizar tipo para minúsculo
+    
         tipo: data.tipo ? data.tipo.toLowerCase() : "sala",
       };
       espacos.push(espacoNormalizado);
@@ -92,7 +91,7 @@ export const atualizarEspaco = async (id, espacoData) => {
       localizacao: espacoData.localizacao || espacoData.localização || "",
       updatedAt: new Date(),
     };
-    // Remover localização com ç se existir
+    
     if (dadosNormalizados.localização) {
       delete dadosNormalizados.localização;
     }
@@ -105,7 +104,7 @@ export const atualizarEspaco = async (id, espacoData) => {
   }
 };
 
-// Deletar espaço
+
 export const deletarEspaco = async (id) => {
   try {
     await deleteDoc(doc(db, ESPACOS_COLLECTION, id));
@@ -116,7 +115,7 @@ export const deletarEspaco = async (id) => {
   }
 };
 
-// Filtrar espaços por tipo
+
 export const filtrarEspacosPorTipo = async (tipo) => {
   try {
     const q = query(
